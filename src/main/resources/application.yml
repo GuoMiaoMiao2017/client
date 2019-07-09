@@ -1,22 +1,22 @@
-server:
-  tomcat:
-    uri-encoding: UTF-8
-    max-threads: 1000
-    min-spare-threads: 30
-  port: 18086
-  connection-timeout: 500ms
-spring:
-  jackson:
-    date-format:
-  profiles:
-    active: dev
-logging:
-  level:
-    com:
-      xiongzehua: debug
-
-mybatis-plus:
-  mapper-locations: classpath:mapper/*Mapper.xml
+#server:
+#  tomcat:
+#    uri-encoding: UTF-8
+#    max-threads: 1000
+#    min-spare-threads: 30
+#  port: 18086
+#  connection-timeout: 500ms
+#spring:
+#  jackson:
+#    date-format:
+#  profiles:
+#    active: dev
+#logging:
+#  level:
+#    com:
+#      xiongzehua: debug
+#
+#mybatis-plus:
+#  mapper-locations: classpath:mapper/*Mapper.xml
 
 
 #pagehelper:
