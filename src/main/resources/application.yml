@@ -3,21 +3,20 @@ server:
     uri-encoding: UTF-8
     max-threads: 1000
     min-spare-threads: 30
-  port: 18080
+  port: 18086
   connection-timeout: 500ms
+spring:
+  jackson:
+    date-format:
+  profiles:
+    active: dev
+logging:
+  level:
+    com:
+      xiongzehua: debug
 
-#    mail:
-#        host: smtp.exmail.qq.com
-#        protocol: smtp
-#        username: 1529548826@qq.com
-#        password: King199092
-#        properties:
-#            mail:
-#                smtp:
-#                    starttls:
-#                        auth: true
-#                        enable: true
-#                        required: true
+mybatis-plus:
+  mapper-locations: classpath:mapper/*Mapper.xml
 
 
 #pagehelper:

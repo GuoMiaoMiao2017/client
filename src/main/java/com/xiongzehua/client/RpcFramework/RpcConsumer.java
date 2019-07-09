@@ -1,5 +1,6 @@
 package com.xiongzehua.client.RpcFramework;
 
+import com.alibaba.fastjson.JSON;
 import org.springframework.cglib.proxy.InvocationHandler;
 import org.springframework.cglib.proxy.Proxy;
 import java.io.ObjectInputStream;
@@ -8,8 +9,9 @@ import java.lang.reflect.Method;
 import java.net.Socket;
 
 public class RpcConsumer {
+
     public static <T> T refer(Class<T> interfaceClass, final String host, final int port) throws Exception {
-        T proxy = (T) Proxy.newProxyInstance(interfaceClass.getClassLoader(), new Class<?>[] {interfaceClass}, new InvocationHandler() {
+        T proxy = (T) Proxy.newProxyInstance(interfaceClass.getClassLoader(), new Class<?>[] {interfaceClass}, new InvocationHandler() {                // invoke方法本意是对目标方法的增强，在这里用于发送RPC请求和接收响应
             @Override
             public Object invoke(Object proxy, Method method, Object[] arguments)  throws Throwable {
                 Socket socket = new Socket(host, port);
@@ -22,7 +24,7 @@ public class RpcConsumer {
                         output.writeObject(arguments);
                         ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
                         try {
-                            Object result = input.readObject();
+                            String result = JSON.toJSONString(input.readObject());
                             System.out.println("客户端收到响应 ： result = " + result);
                             return result;
                         } finally {

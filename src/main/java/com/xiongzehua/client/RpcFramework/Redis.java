@@ -1,4 +1,4 @@
-package com.xiongzehua.client.service;
+package com.xiongzehua.client.RpcFramework;
 
 public interface Redis {
     void set(String key, String value);
