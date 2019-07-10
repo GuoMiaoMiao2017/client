@@ -60,6 +60,41 @@ public class RpcRedisClient {
     }
 
     public String get(String key) {
-        return null;
+        Map<String, String> map = new HashMap<>();
+        map.put("method", "get");
+        map.put("parameter", "String," + key);
+        ObjectOutputStream output = null;
+        try {
+            output = new ObjectOutputStream(socket.getOutputStream());
+            output.write(JSON.toJSONBytes(map));
+
+            System.out.println("发送的map = " + map);
+
+            ObjectInputStream input = null;
+            try {
+
+                input = new ObjectInputStream(socket.getInputStream());
+                String result = JSON.toJSONString(input.readObject());
+
+                Integer code = JSONObject.parseObject(result).getInteger("code");
+                String msg = JSONObject.parseObject(result).getString("msg");
+
+                if (code == 1) {
+                    System.out.println("get成功");
+                    System.out.println("得到的值为 msg = " + msg);
+                } else {
+                    System.out.println("get失败");
+                }
+                input.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            output.close();
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
